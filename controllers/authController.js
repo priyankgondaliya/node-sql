@@ -6,7 +6,8 @@ const nodemailer = require("nodemailer");
 const { Op } = require("sequelize"); // Import Sequelize operators
 const { User } = require("../models");
 
-const secretKey = process.env.JWT_SECRET;
+// const secretKey = process.env.SECRET_KEY;
+const secretKey = "your-secret-key";
 
 const transporter = nodemailer.createTransport({
   service: "Gmail",
@@ -17,25 +18,33 @@ const transporter = nodemailer.createTransport({
 });
 
 exports.register = async (req, res) => {
+  console.log(req.body, "Body");
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
   const { name, email, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
+  const profilePic = req.file ? req.file.filename : null;
   try {
     const existingUser = await User.findOne({ where: { email } });
     if (existingUser) {
       return res.status(400).json({ message: "Email already exists." });
     }
 
-    const user = await User.create({ name, email, password: hashedPassword });
+    const user = await User.create({
+      name,
+      email,
+      password: hashedPassword,
+      profilePic,
+    });
     const token = jwt.sign({ id: user.id, email: user.email }, secretKey, {
       expiresIn: "1h",
     });
 
     res.status(201).json({ user, token });
   } catch (error) {
+    console.log(error, "error");
     res.status(400).json({ error: error.message });
   }
 };

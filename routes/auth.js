@@ -2,9 +2,16 @@ const express = require("express");
 const router = express.Router();
 const authController = require("../controllers/authController");
 const authenticateToken = require("../middleware/authenticateToken");
+// const upload = require("../middlewares/uploadMiddleware");
+const upload = require("../middleware/uploadMiddleware");
 const { validateRegister, validateLogin } = require("../validations/auth");
 
-router.post("/register", validateRegister, authController.register);
+router.post(
+  "/register",
+  //   validateRegister,
+  upload.single("profilePic"),
+  authController.register
+);
 router.post("/login", validateLogin, authController.login);
 router.post(
   "/change-password",
