@@ -23,6 +23,13 @@ app.use("/posts", postRoutes);
 app.use("/users", userRoutes);
 app.use("/", reviewRoutes);
 
+// Create a migration
+// npx sequelize-cli migration:generate --name add-indexes-to-review(file name)
+// npx sequelize-cli db:migrate --migrate 20240715172923-add-indexes-to-reviews(filename)
+
+// Run single seeder file
+// npx sequelize-cli seed:generate --name demo-review
+// npx sequelize-cli db:seed --seed <filename>
 const PORT = process.env.PORT || 9000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
