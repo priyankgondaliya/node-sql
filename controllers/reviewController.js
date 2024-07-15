@@ -80,3 +80,35 @@ exports.deleteReview = async (req, res) => {
     });
   }
 };
+exports.getTopReviews = async (req, res) => {
+  const { postId } = req.params;
+  const { userId } = req.query; // Assuming userId is passed as a query parameter
+
+  try {
+    const topReviews = await Review.findAll({
+      where: { postId, userId },
+      order: [["rating", "DESC"]],
+      limit: 3,
+      include: [{ model: User, attributes: ["id", "name"] }],
+    });
+
+    if (!topReviews.length) {
+      return res.status(404).json({
+        success: false,
+        message: "No reviews found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Top 3 reviews fetched successfully",
+      data: topReviews,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: "Failed to fetch top reviews",
+      error: error.message,
+    });
+  }
+};
