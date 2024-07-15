@@ -8,6 +8,7 @@ This is a Node.js project that demonstrates authentication, CRUD operations, and
 - User login with JWT token generation
 - User password management (change password, forgot password, reset password)
 - CRUD operations for posts
+- Add a review on post
 - Sequelize ORM for database interaction
 - Environment configuration using `.env`
 - Input validation using `express-validator`
