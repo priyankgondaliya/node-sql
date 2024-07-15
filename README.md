@@ -35,7 +35,6 @@ Folder Structure
 .
 ├── config
 │   ├── config.json
-│   └── database.js
 ├── controllers
 │   ├── authController.js
 │   └── postController.js
@@ -58,6 +57,6 @@ Folder Structure
 ├── .env
 ├── .gitignore
 ├── README.md
-├── index.js
+├── app.js
 └── package.json
 ```
