@@ -23,7 +23,8 @@ This is a Node.js project that demonstrates authentication, CRUD operations, and
    ```bash
    git clone https://github.com/yourusername/node-sql.git
    cd node-sql
-   2.Install the dependencies:
+
+ 2.Install the dependencies:
    ```
 
 ```bash
